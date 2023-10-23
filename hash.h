@@ -1,5 +1,4 @@
 typedef struct hash
 {
-    /* data */
+    int valor;
 }
-//CACjdsjdjw
