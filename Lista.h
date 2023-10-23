@@ -14,6 +14,6 @@ int InserirUltimoLista(Lista *list, void* Data);
 void* RemoverInicioLista(Lista *list);
 void* RemoverFinalLista(Lista *list);
 void ShowLista(Lista *list);
-void* Verificar(Lista *list);
+int Verificar(Lista *list);
 
 

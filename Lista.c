@@ -4,7 +4,7 @@
 
 void Init(Lista *list){
     list->Inicio = NULL;
-    list->tam = 0;
+    list->Tam = 0;
 }
 
 int InserirInicioLista(Lista *list, void* Data){
@@ -14,7 +14,7 @@ int InserirInicioLista(Lista *list, void* Data){
     Novo->Data = Data;
     Novo->Proximo = list->Inicio;
     list->Inicio = Novo;
-    list->tam++;
+    list->Tam++;
     return 1;
 }
 
@@ -26,7 +26,7 @@ int InserirUltimoLista(Lista *list, void* Data){
     novo->Data = Data;
     novo->Proximo = NULL;
     
-    if(Verifica(list)){
+    if(Verificar(list)){
         list->Inicio = novo;
     }else{
         No *aux = list->Inicio;
@@ -34,27 +34,27 @@ int InserirUltimoLista(Lista *list, void* Data){
             aux = aux->Proximo;
         aux->Proximo = novo;
     }
-    list->tam++;
+    list->Tam++;
     return 1;
 }
 
 void* RemoverInicioLista(Lista *list){
-    if(Verifica(list)) return NULL;
+    if(Verificar(list)) return NULL;
     No *trash = list->Inicio; 
     list->Inicio = list->Inicio->Proximo; 
     void *Data = trash->Data; 
     free(trash);
-    list->tam--;
+    list->Tam--;
     return Data;
 }
 
 void* RemoverFinalLista(Lista *list) {
-    if (Verifica(list)) return NULL;
+    if (Verificar(list)) return NULL;
     if (list->Inicio->Proximo == NULL) { 
         void *Data = list->Inicio->Data; 
         free(list->Inicio); 
         list->Inicio = NULL; 
-        list->tam = 0; 
+        list->Tam = 0; 
         return Data; 
     }
     No *trash = list->Inicio;
@@ -64,18 +64,19 @@ void* RemoverFinalLista(Lista *list) {
     void *Data = trash->Proximo->Data;
     free(trash->Proximo);
     trash->Proximo = NULL;
-    list->tam--;
+    list->Tam--;
     return Data;
 }
 
 void ShowLista(Lista *list){
     No *Aux = list->Inicio;
-    while(Aux != NULL){
-        printf("%d ", Aux->Data);
+    while (Aux != NULL) {
+        printf("%d \n", *(int*)Aux->Data);
+        Aux = Aux->Proximo;
     }
     printf("\n");
 }
 
-int Verifica(Lista *list){
-    return (list->tam == 0);
+int Verificar(Lista *list){
+    return (list->Tam == 0);
 }
