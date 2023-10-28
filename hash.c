@@ -1,17 +1,17 @@
 #include <stdlib.h>
-#include <Stdio.h>
+#include <stdio.h>
 #include "hash.h"
 #include <string.h>
-
 
 void initHash(TabelaHash *TabelaHash){
     for (int i=0;i<100;i++){
 
-        init(&(TabelaHash->hashes[i]));
+        Init(&(TabelaHash->hashes[i]));
         
     }
     TabelaHash->tam = 0;
 }
+
 
 bool Tabelavazia(TabelaHash *TabelaHash){
     return TabelaHash -> tam==0; 
@@ -24,19 +24,19 @@ int hash(char *key) {
     for (int i = 0; key[i]!=0;i++){
         somador+=key[i]*(i+1);
     }
-    int Hashvalue = somador%MAX;
+    int Hashvalue = somador%100;
         
         return Hashvalue;
 }
 
 int puthash(TabelaHash *TabelaHash, char *key, void *valor, compare equal){
-    if(!ChaveValor(TabelaHash, key equal)){
+    if(!ChaveValor(TabelaHash, key, equal)){
 
-        int res = enqueue(&TabelaHash->hashes[hash(key)],valor);
+        int resultado = InserirInicioLista(&TabelaHash->hashes[hash(key)],valor);
 
-        TabelaHash->tam+=res;
+        TabelaHash->tam+=resultado;
 
-        return res;
+        return resultado;
     }
     return 0;
 }
@@ -44,7 +44,7 @@ int puthash(TabelaHash *TabelaHash, char *key, void *valor, compare equal){
 bool ChaveValor(TabelaHash *TabelaHash, char *key, compare equal){
     
     int HashValue =hash(key);
-    int posicao = indexOF(&TabelaHash->hases[HashValue],key, comapre equal) {
+    int posicao = indexOf(&TabelaHash->hashes[HashValue],key , equal); {
 
         return(posicao!=1)?true:false;
     }
@@ -55,37 +55,35 @@ void* get(TabelaHash *TabelaHash,char *key, compare equal){
     
     int HashValue = hash(key);
 
-Node *aux = TabelaHash->hashes[HashValue].first->next;
+No *aux = TabelaHash->hashes[HashValue].Inicio->Proximo;
     
-while(aux!=TabelaHash->hashes[HashValue].first && !equal (key,aux->valor))
+while(aux!=TabelaHash->hashes[HashValue].Inicio && !equal (key,aux->data))
 
-aux=aux->next;
+aux=aux->Proximo;
 
-return aux->valor 
+return aux->data;
 }
 
 void* removekey(TabelaHash *TabelaHash, char *key, compare equal){
 
 int Hashvalue = hash(key);
-int posicao = indexOF(&TabelaHash->hashes[Hashvalue],key, posicao);
+int posicao = indexOf(&TabelaHash->hashes[Hashvalue],key, equal);
 
-void* resultado =removePosicao(&TabelaHash->hashes[Hashvalue],posicao);
+void* resultado =removeposicao(&TabelaHash->hashes[Hashvalue],posicao);
 if (resultado !=NULL) TabelaHash->tam--;
 
 return resultado;
 
 }
 
-void mostrarHash(TabelaHash *TabelaHash, printNode print){
-    
-        printf("Aqui esta o elemento do Hash %d /n/n ",TabelaHash->tam);
-for (int i=0,i<100,i++){
-       
-     printf("hash %d e %d sao :", i,TabelaHash->hashes[i].tam);
-        
- show(&TabelaHash->hashes[i].print);
-    
-     printf("/n");
 
+
+void mostrarHash(TabelaHash *TabelaHash, printNo print) {
+    printf("Aqui está o elemento do Hash %d\n\n", TabelaHash->tam);
+    
+    for (int i = 0; i < 100; i++) {
+        printf("Hash %d e %d são:\n", i, TabelaHash->hashes[i].Tam);
+        print(&TabelaHash->hashes[i]);
+        printf("\n");
     }
 }
