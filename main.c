@@ -6,7 +6,6 @@
 #include "arquivo.h"
 #define TAM 31
 
-// Resto do código que você já forneceu
 
 int main() {
     Lista lista[TAM];
