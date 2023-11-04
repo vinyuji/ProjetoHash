@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include "Lista.h"
 
-int data1 = 10;
-int data2 = 20;
-
 void Init(Lista *list){
     list->Inicio = NULL;
     list->Tam = 0;
@@ -14,19 +11,32 @@ int InserirInicioLista(Lista *list, void* Data){
     No *Novo = (No*)malloc(sizeof(No));
     if(Novo == NULL) return -1;
 
-    Novo->data = Data;
+    Novo->Data = Data;
     Novo->Proximo = list->Inicio;
     list->Inicio = Novo;
     list->Tam++;
     return 1;
 }
 
+void* buscarLista(Lista *list, void* Data) {
+    No *aux = list->Inicio;
+    while (aux) {
+        if (*(int*)aux->Data == *(int*)Data) {
+            return aux->Data;
+        }
+        aux = aux->Proximo;
+    }
+    return NULL;
+}
+
+
+
 int InserirUltimoLista(Lista *list, void* Data){
     No *novo = (No*)malloc(sizeof(No));
     
     if(novo == NULL) return -1;
     
-    novo->data = Data;
+    novo->Data = Data;
     novo->Proximo = NULL;
     
     if(Verificar(list)){
@@ -45,7 +55,7 @@ void* RemoverInicioLista(Lista *list){
     if(Verificar(list)) return NULL;
     No *trash = list->Inicio; 
     list->Inicio = list->Inicio->Proximo; 
-    void *Data = trash->data; 
+    void *Data = trash->Data; 
     free(trash);
     list->Tam--;
     return Data;
@@ -54,7 +64,7 @@ void* RemoverInicioLista(Lista *list){
 void* RemoverFinalLista(Lista *list) {
     if (Verificar(list)) return NULL;
     if (list->Inicio->Proximo == NULL) { 
-        void *Data = list->Inicio->data; 
+        void *Data = list->Inicio->Data; 
         free(list->Inicio); 
         list->Inicio = NULL; 
         list->Tam = 0; 
@@ -64,7 +74,7 @@ void* RemoverFinalLista(Lista *list) {
     while (trash->Proximo->Proximo != NULL) {
         trash = trash->Proximo;
     }
-    void *Data = trash->Proximo->data;
+    void *Data = trash->Proximo->Data;
     free(trash->Proximo);
     trash->Proximo = NULL;
     list->Tam--;
@@ -74,7 +84,7 @@ void* RemoverFinalLista(Lista *list) {
 void ShowLista(Lista *list){
     No *Aux = list->Inicio;
     while (Aux != NULL) {
-        printf("%d \n", *(int*)Aux->data);
+        printf("%s  ", (char*)Aux->Data);
         Aux = Aux->Proximo;
     }
     printf("\n");
@@ -83,18 +93,14 @@ void ShowLista(Lista *list){
 int Verificar(Lista *list){
     return (list->Tam == 0);
 }
-void* removeposicao(Lista *Lista, int posicao) {
-	return NULL;
-}
-
-int indexOf(Lista *list,void *data,compare equal) {
-    if (Verificar(list)) return -1;
-    int tam=0;
-    No *aux = list->Inicio->Proximo;
-while (aux != list->Inicio && !equal(aux->data, data)) {
-
-        aux=aux->Proximo;
-        tam++;
+void EsvaziarLista(Lista *list) {
+    No *atual = list->Inicio;
+    while (atual != NULL) {
+        No *proximo = atual->Proximo;
+        free(atual->Data);
+        free(atual);
+        atual = proximo;
     }
-    return (aux==list->Inicio)?-1:tam;
+    list->Inicio = NULL;
 }
+

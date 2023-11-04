@@ -1,89 +1,72 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include "hash.h"
+#include <stdlib.h>
+#include <math.h>
 #include <string.h>
+#include "Lista.h"
+#include "Hash.h"
+#include "arquivo.h"
+#define TAM 31
 
-void initHash(TabelaHash *TabelaHash){
-    for (int i=0;i<100;i++){
+void iniciarHash(Lista list[]){
+    int i;
+    for(i = 0; i < TAM; i++)
+        Init(&list[i]);
+}
 
-        Init(&(TabelaHash->hashes[i]));
+int funcaoHash(void* Data) {
+    int* valor = Data;
+    return *valor % TAM;
+}
+
+void inserirHash(Lista list[], void* Data) {
+    int soma = calcularPesoASCII(Data);
+    int id = funcaoHash(&soma);
+    InserirInicioLista(&list[id], Data);
+}
+
+void ContarDiferente(Lista lista[]){
+    int contar;
+    for( int i=0 ; i < TAM ; i++){
+        contar = lista[i].Tam;
+        printf("Posicao %d: %d colisoes\n", i, contar);
+    }
+}
+
+void* BuscarHash(Lista list[], void* Data) {
+    int soma = calcularPesoASCII(Data);
+    int id = funcaoHash(&soma);
+    printf("\nindice gerado: %d", id);
+    void* resultado = buscarLista(&list[id], Data);
+    return resultado;
+}
+
+void imprimirHash(Lista list[]){
+    for(int i = 0; i < TAM ; i++){
+        printf("valor de i: %2d\t", i);
+        ShowLista(&list[i]);
+    }
         
-    }
-    TabelaHash->tam = 0;
 }
 
-
-bool Tabelavazia(TabelaHash *TabelaHash){
-    return TabelaHash -> tam==0; 
+void Inserir(Lista list[]) {
+    char valor[50];
+    printf("\tQual palavra deseja inserir?\n");
+    scanf("%s", valor);
+    char *valorPtr = malloc(strlen(valor) + 1);
+    strcpy(valorPtr, valor);
+    inserirHash(list, valorPtr);
 }
 
-int hash(char *key) {
-    
-    int somador = 0;
-
-    for (int i = 0; key[i]!=0;i++){
-        somador+=key[i]*(i+1);
-    }
-    int Hashvalue = somador%100;
-        
-        return Hashvalue;
-}
-
-int puthash(TabelaHash *TabelaHash, char *key, void *valor, compare equal){
-    if(!ChaveValor(TabelaHash, key, equal)){
-
-        int resultado = InserirInicioLista(&TabelaHash->hashes[hash(key)],valor);
-
-        TabelaHash->tam+=resultado;
-
-        return resultado;
-    }
-    return 0;
-}
-
-bool ChaveValor(TabelaHash *TabelaHash, char *key, compare equal){
-    
-    int HashValue =hash(key);
-    int posicao = indexOf(&TabelaHash->hashes[HashValue],key , equal); {
-
-        return(posicao!=1)?true:false;
-    }
-
-}
-
-void* get(TabelaHash *TabelaHash,char *key, compare equal){
-    
-    int HashValue = hash(key);
-
-No *aux = TabelaHash->hashes[HashValue].Inicio->Proximo;
-    
-while(aux!=TabelaHash->hashes[HashValue].Inicio && !equal (key,aux->data))
-
-aux=aux->Proximo;
-
-return aux->data;
-}
-
-void* removekey(TabelaHash *TabelaHash, char *key, compare equal){
-
-int Hashvalue = hash(key);
-int posicao = indexOf(&TabelaHash->hashes[Hashvalue],key, equal);
-
-void* resultado =removeposicao(&TabelaHash->hashes[Hashvalue],posicao);
-if (resultado !=NULL) TabelaHash->tam--;
-
-return resultado;
-
-}
-
-
-
-void mostrarHash(TabelaHash *TabelaHash, printNo print) {
-    printf("Aqui está o elemento do Hash %d\n\n", TabelaHash->tam);
-    
-    for (int i = 0; i < 100; i++) {
-        printf("Hash %d e %d são:\n", i, TabelaHash->hashes[i].Tam);
-        print(&TabelaHash->hashes[i]);
-        printf("\n");
+void buscarPalavras(Lista list[]) {
+    char valor[50];
+    printf("\tQual palavra deseja buscar?\n");
+    scanf("%s", valor);
+    char *valorPtr = malloc(strlen(valor) + 1);
+    strcpy(valorPtr, valor); 
+    char *retorno = (char *)BuscarHash(list, valorPtr);
+    if (retorno != NULL) {
+        printf("\tValor encontrado: %s\n", retorno);
+    } else {
+        printf("\tValor não encontrado!\n");
     }
 }

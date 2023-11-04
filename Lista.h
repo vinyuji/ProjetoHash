@@ -1,28 +1,21 @@
-#include "stdbool.h"
-
 typedef struct No {
-    void *data;
+    void *Data;
     struct No *Proximo;
 }No;
-
-
 
 typedef struct Lista{
     No *Inicio;
     int Tam;
 }Lista;
 
-typedef bool (*compare)(void*,void*);
-
-
 void Init(Lista *list);
-int InserirInicioLista(Lista *list, void* data);
-int InserirUltimoLista(Lista *list, void* data);
+int InserirInicioLista(Lista *list, void* Data);
+int InserirUltimoLista(Lista *list, void* Data);
 void* RemoverInicioLista(Lista *list);
 void* RemoverFinalLista(Lista *list);
-void* removeposicao(Lista *Lista, int posicao);
 void ShowLista(Lista *list);
 int Verificar(Lista *list);
-int indexOf(Lista *list, void *data, compare equal);
+void* buscarLista(Lista *list, void* Data);
+void EsvaziarLista(Lista *list);
 
 

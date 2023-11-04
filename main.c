@@ -1,46 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Lista.h"
+#include "Hash.h"
+#include "arquivo.h"
+#define TAM 31
 
-int main(){
+// Resto do código que você já forneceu
 
-    Lista list;
+int main() {
+    Lista lista[TAM];
+    int op, length;
+    
+    iniciarHash(lista);
 
-    printf("Lista iniciada\n");
-    Init(&list);
-    int valor = 10;
+    do {
+        printf("\n\t0 - SAIR\n\t1 - Inserir\n\t2 - Buscar\n\t3 - Imprimir\n\t4 - Contar Colisoes\n\t5 - ler o arquivo\n\t6 - Por a lista de palavra na tabela hash\n");
+        scanf("%d", &op);
 
-    printf("\nValor inserido no comeco\n");
-    InserirInicioLista( &list, &valor);
-    ShowLista(&list);
-    
-    int outroValor = 20;
-    printf("Valor inserido no final\n");
-    InserirUltimoLista(&list, &outroValor);
-    ShowLista(&list);
-    
-    printf("\nLista\n");
-    ShowLista(&list); 
-    printf("Valor removido do final\n");
-    RemoverFinalLista(&list);
-    
-    printf("\nNova Lista\n");
-    ShowLista(&list); 
-    
-    outroValor = 20;
-    printf("Valor inserido no final\n");
-    InserirUltimoLista(&list, &outroValor);
-    
-    printf("\nNova Lista\n");
-    ShowLista(&list); 
-    
-    printf("Valor removido do inicio\n");
-    RemoverInicioLista(&list);
-    
-    printf("\nNova Lista\n");
-    ShowLista(&list);
-    
-    
+        switch (op) {
+            case 1:
+                Inserir(lista);
+                break;
+            case 2:
+                buscarPalavras(lista);
+                break;
+            case 3:
+                imprimirHash(lista);
+                break;
+            case 4:
+                ContarDiferente(lista);
+                break;
+            case 5:
+                leituraArquivo();
+                break;
+            case 6:
+                ColocarTabelaHash(lista);
+                break;
+            default:
+                printf("opcao invalida!\n");
+        }
+    } while (op != 0);
 
+    for (int i = 0; i < TAM; i++) {
+        EsvaziarLista(&lista[i]);
+    }
     return 0;
 }
