@@ -3,7 +3,7 @@
 #include <math.h>
 #include <string.h>
 #include "Lista.h"
-#include "Hash.h"
+#include "hash.h"
 #include "arquivo.h"
 #define TAM 31
 
