@@ -1,28 +1,22 @@
-main: clear
-	@echo ==========================
-	@echo      PROGRAMA Hash
-	@echo ==========================
-	@echo Compilando o programa main
-	@gcc main.c Lista.c -o Hash > /dev/null 2>&1
-	@echo Tornando o programa main executável
-	@chmod +x Hash > /dev/null 2>&1
-	@echo Executando o programa main
-	@./Hash
-	@echo ======================================================
-	
+
+
+all: meu_programa
+
+meu_programa: arquivo.o hash.o main.o Lista.o
+	gcc Lista.o arquivo.o hash.o main.o -o meu_programa
+
+arquivo.o: arquivo.c
+	gcc -c arquivo.c
+
+hash.o: hash.c
+	gcc -c hash.c
+
+main.o: main.c
+	gcc -c main.c
+
+Lista.o: Lista.c
+	gcc -c Lista.c
+
 clean:
-	@echo Limpando arquivos gerados
-	@rm -f Hash
+	rm -f meu_programa arquivo.o hash.o main.o Lista.o
 
-help:
-
-	@echo ==========================
-	@echo      	   AJUDA
-	@echo ==========================
-	@echo "all              | Compila e executa tudo"
-	@echo "ponteiro         | Ponteiro Simples"
-	@echo "ponteiro_duplo   | Ponteiro Duplo"
-	@echo "linkedlist       | Linked List"
-	@echo "dlinkedlist      | Doubly Linked List"
-	@echo "clear            | Apaga todos os programas"
-	@echo ======================================================
