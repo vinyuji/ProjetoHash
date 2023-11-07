@@ -5,7 +5,7 @@
 #include "Lista.h"
 #include "hash.h"
 #include "arquivo.h"
-#define TAM 31
+#define TAM 1024
 
 void iniciarHash(Lista list[]){
     int i;
@@ -26,10 +26,21 @@ void inserirHash(Lista list[], void* Data) {
 
 void ContarDiferente(Lista lista[]){
     int contar;
+    int maior;
+    int posicao;
     for( int i=0 ; i < TAM ; i++){
         contar = lista[i].Tam;
         printf("Posicao %d: %d colisoes\n", i, contar);
+        if(i == 0){
+            maior = lista[i].Tam;
+            posicao = i;
+        } else if(maior < lista[i].Tam){
+                    maior = lista[i].Tam;
+                    posicao = i;
+                }
     }
+    printf("\na maior quantidade de colisao eh: %d na posicao: %d\n", maior, posicao);
+
 }
 
 void* BuscarHash(Lista list[], void* Data) {

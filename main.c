@@ -4,7 +4,7 @@
 #include "Lista.h"
 #include "hash.h"
 #include "arquivo.h"
-#define TAM 31
+#define TAM 1024
 
 
 int main() {
