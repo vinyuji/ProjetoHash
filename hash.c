@@ -5,7 +5,7 @@
 #include "Lista.h"
 #include "hash.h"
 #include "arquivo.h"
-#define TAM 1024
+#define TAM 4096
 
 void iniciarHash(Lista list[]){
     int i;

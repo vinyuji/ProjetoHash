@@ -4,7 +4,8 @@
 #include "Lista.h"
 #include "hash.h"
 #include "arquivo.h"
-#define TAM 1024
+#include "grafico.h"
+#define TAM 4096
 
 
 int main() {
@@ -14,7 +15,7 @@ int main() {
     iniciarHash(lista);
 
     do {
-        printf("\n\t0 - SAIR\n\t1 - Inserir\n\t2 - Buscar\n\t3 - Imprimir\n\t4 - Contar Colisoes\n\t5 - ler o arquivo\n\t6 - Por a lista de palavra na tabela hash\n");
+        printf("\n\t0 - SAIR\n\t1 - Inserir\n\t2 - Buscar\n\t3 - Imprimir\n\t4 - Contar Colisoes\n\t5 - ler o arquivo\n\t6 - Por a lista de palavra na tabela hash\n\t7 - Gerar o grafico\n");
         scanf("%d", &op);
 
         switch (op) {
@@ -35,6 +36,9 @@ int main() {
                 break;
             case 6:
                 ColocarTabelaHash(lista);
+                break;
+            case 7: 
+                colorir(lista);
                 break;
             default:
                 printf("opcao invalida!\n");

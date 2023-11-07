@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "Lista.h"
 #include "hash.h"
 
@@ -29,7 +30,7 @@ int calcularPesoASCII(const char *texto) {
 
     for (int i = 0; i < comprimento; i++) {
         if (texto[i] != '\n') {
-            soma += texto[i] * (i + 1) * 10;
+            soma += texto[i] * (i + 1) * 13;
         }
     }
     return soma;
@@ -70,7 +71,7 @@ void ColocarTabelaHash(Lista list[]) {
         int soma = calcularPesoASCII(texto);
         int id = funcaoHash(&soma);
         
-        printf("Linha %d: %s\n\n", linha, texto);
+        printf("Linha %d: %s soma:%d id:%d\n\n", linha, texto, soma, id);
 
         linha++;
     }
