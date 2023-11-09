@@ -15,29 +15,31 @@ int main() {
     iniciarHash(lista);
 
     do {
-        printf("\n\t0 - SAIR\n\t1 - Inserir\n\t2 - Buscar\n\t3 - Imprimir\n\t4 - Contar Colisoes\n\t5 - ler o arquivo\n\t6 - Por a lista de palavra na tabela hash\n\t7 - Gerar o grafico\n");
+        printf("\n\t0 - SAIR\n\t1 - Inserir\n\t2 - Imprimir\n\t3 - Contar Colisoes\n\t4 - ler o arquivo\n\t5 - Por a lista de palavra na tabela hash\n\t6 - Gerar o grafico\n");
         scanf("%d", &op);
 
         switch (op) {
+            case 0: 
+                for (int i = 0; i < TAM; i++) {
+                    EsvaziarLista(&lista[i]);
+                }
+                break;
             case 1:
                 Inserir(lista);
                 break;
             case 2:
-                buscarPalavras(lista);
-                break;
-            case 3:
                 imprimirHash(lista);
                 break;
-            case 4:
+            case 3:
                 ContarDiferente(lista);
                 break;
-            case 5:
+            case 4:
                 leituraArquivo();
                 break;
-            case 6:
+            case 5:
                 ColocarTabelaHash(lista);
                 break;
-            case 7: 
+            case 6:
                 colorir(lista);
                 break;
             default:

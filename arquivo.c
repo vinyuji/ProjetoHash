@@ -30,7 +30,12 @@ int calcularPesoASCII(const char *texto) {
 
     for (int i = 0; i < comprimento; i++) {
         if (texto[i] != '\n') {
-            soma += texto[i] * (i + 1) * 13;
+            // grafico 1 soma += texto[i] * (i + 1) * 13;
+            // grafico 2 soma += texto[i]*(i + 1)*(pow(2, i)) ;
+            // grafico 3 
+            soma += texto[i]*(pow(3, i)) ;
+            // grafico 4 soma += texto[i]*(i + 3)*(pow(2,i));
+            // grafico 5 soma += texto[i] * (i + 3) * (1 << i);
         }
     }
     return soma;

@@ -8,7 +8,7 @@
 
 // Função para criar um arquivo PPM
 void createPPM(int matrix[WIDTH][HEIGHT]) {
-    FILE* ppmFile = fopen("output.ppm", "w");
+    FILE* ppmFile = fopen("GraficoVI.ppm", "w");
     if (ppmFile == NULL) {
         printf("Erro ao abrir o arquivo PPM\n");
         return;
